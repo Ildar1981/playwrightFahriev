@@ -4,9 +4,10 @@ import { auth } from '../../functions'
 import {
   _baseURL,
   _loginAdmin,
+  _loginAdminWrong,
   _passwordAdmin,
   _passwordAdminWrong,
-  _usernameAdmin,
+  _usernameAdmin
 } from '../../const'
 
 test.describe(`Админ`, () => {
@@ -17,6 +18,11 @@ test.describe(`Админ`, () => {
 
   test(`Авторизация неудачная`, async ({ page }) => {
     await auth(page, _baseURL, _loginAdmin, _passwordAdminWrong)
+    await expect(page.getByRole(`alert`)).toContainText(`Ошибка авторизации`)
+  })
+
+  test(`Авторизация неудачная c неверным логином`, async ({ page }) => {
+    await auth(page, _baseURL, _loginAdminWrong, _passwordAdmin)
     await expect(page.getByRole(`alert`)).toContainText(`Ошибка авторизации`)
   })
 })

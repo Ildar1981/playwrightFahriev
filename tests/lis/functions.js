@@ -141,7 +141,7 @@ export async function fillResult(page) {
     await field[1].locator(`input`).press(`Enter`)
   } else if (field[0] === 1) {
     // выпадающий список
-    await page.locator(`.el-select-dropdown`).last().getByRole(`listitem`).first().click()
+    ё
   } else if (field[0] === 2) {
     // интервал (два инпута)
     await page.locator(`#LisFieldInputMin`).first().fill(`1`)
