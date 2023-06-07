@@ -25,6 +25,7 @@ test.describe(`Пассивные пробы`, async () => {
     expect(page.locator(`#LisSamplesDialog`))
 
     // закрыть окно пассивных проб
-    await page.locator(`#LisFooterBtn_openSamples`).click()
+    await page.locator(`#LisSamplesDialog div.laba-dialog-title > img`).click()
+    expect(page.locator(`#pane-tab1`))
   })
 })
