@@ -2,24 +2,20 @@ import { test } from '../../fixtures/default'
 import { expect } from '@playwright/test'
 import { authAdmin, openModule } from '../../functions'
 
-test.describe(`Пассивные пробы`, async () => {
-
+test.describe(`Модуль лаборатория`, () => {
+  test.beforeEach(async ({ page }) => {
    
-      test.beforeEach(async ({ page }) => {
-      test.skip(process.env.TEST_TYPE == `smoke`)
-      await authAdmin(page)
-      await openModule(page, `Лаборатория`)
-    })
-    
-  test(`Открыть окно пассивных проб и закрыть когда открыто направление`, async ({ page }) => {
+    await authAdmin(page)
+    await openModule(page, `Лаборатория`)
+  })
+  test(``, async ({ page }) => {
+    await page.waitForSelector(`#LisReferralSearch`)
+    await page.locator(`#LisReferralSearch`).fill(`юхта`);
+    await page.locator(`#LisReferralSearch`).press(`Enter`);
 
-    // получить существующие данные: имя пациента, наименование исследования
-    const data = await getExistingData(page)
-    data.barcode = barcode
+    await page.waitForSelector(`text=Направление: Анализ мочи по Нечипоренко `)
+    await page.locator(`#pane-all div.search-tab > div:nth-child(2) span`).click();
     
-    // создать направление с полученными данными и рандомным штрих-кодом
-    await createReferral(page, data)
-
     // открыть окно пассивных проб
     await page.locator(`#LisFooterBtn_openSamples`).click()
     expect(page.locator(`#LisSamplesDialog`))
