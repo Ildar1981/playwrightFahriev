@@ -4,3 +4,4 @@ export const _passwordAdmin = process.env.PASSWORD ?? `ATJ4DCMwrjRP`
 export const _passwordAdminWrong = `123456`
 export const _usernameAdmin = process.env.USER_NAME ?? `КОМТЕК АДМИНИСТРАТОР`
 export const _loginAdminWrong = `admins`
+

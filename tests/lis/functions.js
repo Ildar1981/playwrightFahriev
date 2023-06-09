@@ -2,6 +2,8 @@ import {
   tables
 } from './const'
 import { waitForOneOf } from '../../functions'
+import  { _patient } from '../../const'
+
 
 export async function getExistingData(page) {
   const data = {}
@@ -102,6 +104,17 @@ export async function createReferral(page, data) {
   await page.getByRole(`row`).getByText(`Заполнить`).first().click()
   await page.getByPlaceholder(`Введите текст`).last().fill(data.barcode)
   await page.getByRole(`button`, { name: `Сохранить` }).click()
+}
+export async function searchNapr(page, _patient){
+  await page.waitForSelector(`#LisReferralSearch`)
+    await page.locator(`#LisReferralSearch`).fill(_patient);
+    await page.locator(`#LisReferralSearch`).press(`Enter`);
+    expect(page.locator(`text=Направление: Анализ мочи по Нечипоренко`))
+
+    // кликаем по направлению первому из списка
+    await page.locator(`#pane-all div.search-tab > div:nth-child(2) span`).click();
+    await page.waitForTimeout(3000)
+
 }
 
 export async function setTableCols(page, table, cols) {
