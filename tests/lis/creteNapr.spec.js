@@ -1,7 +1,7 @@
 import { test } from '../../fixtures/default'
 import { expect } from '@playwright/test'
 import { authAdmin, openModule } from '../../functions'
-import { _patient } from '../../const'
+
 
 test.describe(`Создание направления`, () => {
   test.beforeEach(async ({ page }) => {
@@ -10,18 +10,7 @@ test.describe(`Создание направления`, () => {
     await openModule(page, `Лаборатория`)
   })
 
-const TODO_ITEMS = [
-  'Работа с направлениями',
-  'нарыкова',
-  '13270252',
-  '13699949',
-  'Исследование мочи методом Нечипоренко',
-  '1000',
-  'Лаборатория'
-];
-
-
-  test('1.Создать направление ', async ({ page }) => {
+  test(`1.Создать направление `, async ({ page }) => {
 
   
     await page.waitForSelector(`#LisReferralSearch`);
@@ -30,18 +19,18 @@ const TODO_ITEMS = [
 	
 	//Находим пациента
     await page.getByRole(`row`).getByText(`Заполнить`).first().click()
-    await page.getByPlaceholder(`Выбрать пациента`).fill(TODO_ITEMS[1])
+    await page.getByPlaceholder(`Выбрать пациента`).fill(`нарыкова`)
     await page.locator(`.el-select-dropdown__list`).getByRole(`listitem`).first().click()
     await page.getByRole(`row`).getByText(`Заполнить`).first().click()
-    await page.getByPlaceholder(`Выбрать исследование`).fill(TODO_ITEMS[4])
+    await page.getByPlaceholder(`Выбрать исследование`).fill(`Исследование мочи по нечипоренко`)
     await page.locator(`.el-select-dropdown__list`).getByRole(`listitem`).first().click()
     await page.getByRole(`row`).getByText(`Заполнить`).first().click()
     await page.getByPlaceholder(`Выбрать срочность`).fill(`-`)
     await page.getByRole(`button`, { name: `Сохранить` }).click()
-	
-	});
+	  expect(page.locator(`text=Направление создано`))
+	})
   
-}); 
+}) 
 
 // test.describe(`Подгрузка направления`, () => {
 //   test('2.Подгрузить направление', async ({ page }) => {
