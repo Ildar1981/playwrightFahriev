@@ -1,1 +1,1 @@
-export const _patient = 'юхта'
+export const _patient = 'тестовый'
