@@ -11,3 +11,5 @@ export async function createReferralNew(page, patient, analysis) {
   await page.locator(`.el-select-dropdown__list`).getByRole(`listitem`).first().click()
   await page.getByRole(`button`, { name: `Сохранить` }).click()
 }
+
+export async function 

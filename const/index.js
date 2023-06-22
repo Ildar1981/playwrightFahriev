@@ -1,2 +1,2 @@
 export * from './auth'
-export * from './patientInfo'
+export * from './config'

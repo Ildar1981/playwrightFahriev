@@ -1,5 +1,4 @@
-import { test } from '../../fixtures/default'
-import { expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 import { authAdmin, openModule } from '../../functions'
 
 test.describe(`Проверка справочников`, () => {
@@ -9,6 +8,7 @@ test.describe(`Проверка справочников`, () => {
     await openModule(page, `Лаборатория`)
   })
   test(`справочник статусов`, async ({ page }) => {
+	  
     // нажимаем на кнопку Действие и к списку через выпадающее окно
     await page.locator(`#LisFooterBtn_openSubActions`).click()
     //ожидаем увидеть иконку кнопки Ксписку
@@ -19,6 +19,7 @@ test.describe(`Проверка справочников`, () => {
     //кликаем на статус
     await page.getByRole(`listitem`).filter({ hasText: `Статус` }).click()
     //ожидаем увидеть первый из справочника статус-Отменен
+	
     expect(page.locator(`text=Отменен`))
     //ожидаем увидеть первый из справочника статус-Отменен
     expect(page.locator(`text=В работе`))

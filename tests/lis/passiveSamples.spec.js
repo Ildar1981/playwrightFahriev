@@ -1,7 +1,6 @@
-import { test } from '../../fixtures/default'
-import { expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 import { authAdmin, openModule } from '../../functions'
-import { _patient } from '../../const'
+
 
 test.describe(`Открытие и закрытие модальных окон`, () => {
   test.beforeEach(async ({ page }) => {
@@ -12,7 +11,7 @@ test.describe(`Открытие и закрытие модальных окон`
   test(`окно пассивных проб`, async ({ page }) => {
 	
     await page.waitForSelector(`#LisReferralSearch`)
-    await page.locator(`#LisReferralSearch`).fill(_patient);
+    await page.locator(`#LisReferralSearch`).fill(`юхта`);
     await page.locator(`#LisReferralSearch`).press(`Enter`);
     expect(page.locator(`text=Направление: Анализ мочи по Нечипоренко`))
 	
@@ -32,7 +31,7 @@ test.describe(`Открытие и закрытие модальных окон`
   test(`проверка радиобаттонов в пассивных пробах`, async ({ page }) => {
 	
     await page.waitForSelector(`#LisReferralSearch`)
-    await page.locator(`#LisReferralSearch`).fill(_patient);
+    await page.locator(`#LisReferralSearch`).fill(`юхта`);
     await page.locator(`#LisReferralSearch`).press(`Enter`);
     expect(page.locator(`text=Направление: Анализ мочи по Нечипоренко`))
 	
@@ -57,7 +56,7 @@ test.describe(`Открытие и закрытие модальных окон`
     expect(page.locator(`text=Направление: Анализ мочи по Нечипоренко`))
 
     // кликаем по направлению первому из списка
-    await page.locator(`#pane-all div.search-tab > div:nth-child(2) span`).click();
+    await page.locator(`#pane-all`).getByText(`Анализ мочи по Нечипоренко`).first().click();
     await page.waitForTimeout(3000)
 
     // открыть окно динамики

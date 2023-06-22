@@ -1,5 +1,4 @@
-import { test } from '../../fixtures/default'
-import { expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 import { auth } from '../../functions'
 import {
   _baseURL,
