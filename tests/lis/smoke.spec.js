@@ -1,37 +1,25 @@
 import { expect, test } from '@playwright/test'
-import config from '../../const/config'
 import { authAdmin, openModule } from '../../functions'
-import LoginPage from '../pages/loginPages'
+import { createReferralNew, createReferralNewWithDoctor } from './functions'
+test.describe(`Создание направления и прочие элементы на вкладке`, () => {
+	
+    test.beforeEach(async ({ page }) => {
 
-test.describe(`авторизация`, () => {
-  test.beforeEach(async () => {
-    await LoginPage.visit()
+    await authAdmin(page)
+    await openModule(page, `Лаборатория`)
   })
-  test(`Успешная авторизация`, async () => {
-    await LoginPage.login({
-      username: config.crendentials.user.username,
-      password: config.crendentials.user.password
-      })
-    await LoginPage.submitForm()
-    expect(page).toHaveTitle(/ПК Здравоохранение/)
-  })
-  test(`авторизация неуспешная с неверным паролем`, async () => {
-    await LoginPage.login({
-      username: config.crendentials.user.username,
-      password: 'ddd'
-      })
-    await LoginPage.submitForm()
-    expect(page.getByText('Ошибка авторизации')).toBeVisible();
-
-  })
-  test(`авторизация неуспешная с неверным логином`, async () => {
-    await LoginPage.login({
-      username: 'fff',
-      password: config.crendentials.user.password
-      })
-    await LoginPage.submitForm()
-    expect(LoginPage.getPasswordError().contains(`Ошибка авторизации`))
-
-  })
-
+test(`Переход стрелками вперед и назад после перехода на вкладку Список направлений`, async ({ page }) => {
+	await login(page) 
+	//Переходим к списку направлений
+	await page.waitForSelector(`#LisReferralSearch`)
+	await page.locator(`#LisFooterBtn_openSubActions`).click()
+	await page.locator(`#LisFooterBtn_openReferrals`).click()
+	// Проверка переходов по стрелочкам браузера
+	await page.goBack()
+	await page.waitForTimeout(2000)
+	
+	await page.goForward()
+	await page.waitForTimeout(2000)
+	expect(page.waitForSelector(`text=Работа с направлениями`))
+	})
 })
